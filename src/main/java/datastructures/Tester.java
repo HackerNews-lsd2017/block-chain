@@ -4,8 +4,14 @@ public class Tester {
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		Block b = new Block(1, "hi");
-		System.out.println(b.mine());
+		
+		Transaction t = new Transaction("Adam", 30, "YourMom");
+		Transaction t2 = new Transaction("Adam", 30, "He'sMom");
+		Block b = new Block();
+		b.addTransaction(t);
+		b.addTransaction(t2);
+		
+		
 
 	}
 
