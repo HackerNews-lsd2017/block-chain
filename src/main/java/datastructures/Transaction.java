@@ -15,18 +15,21 @@ public class Transaction {
 		this.receiver = receiver;
 		this.amount = amount;
 	}
+
 	public String getGiver() {
 		return giver;
 	}
+
 	public String getReceiver() {
 		return receiver;
 	}
+
 	public Integer getAmount() {
 		return amount;
 	}
 	
 	@Override
 	public String toString() {
-		return giver+"-"+amount+">"+receiver;
+		return giver + "-" + amount + "->" + receiver;
 	}
 }

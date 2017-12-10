@@ -1,97 +1,110 @@
 package datastructures;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.apache.commons.codec.digest.DigestUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Blockchain {
-
-	// This should be a tree but ain't nobody got time for that
+   	// This should be a tree but ain't nobody got time for that
 	private List<Block> blockchain = new ArrayList<>();
+    // "\\A[0]{63}" -> 63 zeros
+    private final String GENESIS_HASH = new String(new char[63]).replace('\0', '0');
 
-	public boolean chainBlock(Block newBlock) {
+    public boolean chainBlock(Block newBlock) {
 		Block lastBlock = getLatestBlock();
 
-		
-		if (validateLinkBetweenBlocks(getLatestBlock(),newBlock)==true) {
+		if (validateLinkBetweenBlocks(lastBlock, newBlock)) {
 			// Click! Chain new block
 			blockchain.add(newBlock);
+            System.out.println("Successfully chained a new block: " + newBlock);
 			return true;
 		}
-		
-		return false;
+        System.out.println("Couldn't chain block");
+        return false;
 	}
 
 	private boolean validateLinkBetweenBlocks(Block previousBlock, Block newBlock) {
-		//if (previousBlock==null) 
-		String hashOflastBlock;
-		String hashOfNewBlock;
-		//this is shit
-		if (blockchain.size()==0) hashOflastBlock=getHashOfLatestBlock();
-		else hashOflastBlock = previousBlock.getThisHash();
-		hashOfNewBlock = newBlock.getThisHash();
+		String previousBlockHash;
+		String newBlockHash;
+
+		if (newBlock.getBlockHash() == null) {
+		    return false;
+        }
+
+		if (blockchain.size() == 0) {
+			previousBlockHash = getLatestBlockHash();
+        } else {
+            previousBlockHash = previousBlock.getBlockHash();
+        }
+		newBlockHash = newBlock.getBlockHash();
 		
-		// Check if block "to be chained" has wrong prefix
-		if (!hashOfNewBlock.startsWith("0000"))
-			return false;
-		
+		// Check if block "to be chained" has correct prefix, otherwise return false
+		if (!newBlockHash.startsWith("0000")) {
+            return false;
+        }
+
 		// Check if new block is not a child of previous block
-		if (!hashOflastBlock.equals(newBlock.getPreviousHash()))
-			return false;
+		if (!previousBlockHash.equals(newBlock.getPreviousHash())) {
+            return false;
+        }
 
 		// Check if hash that new block is presenting is not "honest"
-		
 		String expectedHash = DigestUtils.sha256Hex(
-				newBlock.getNonce() + newBlock.transactionsToString(newBlock.getTransactions()) + hashOflastBlock);
+				newBlock.getNonce() + newBlock.transactionsToString(newBlock.getTransactions()) + previousBlockHash);
 
-		if (!hashOfNewBlock.equals(expectedHash))
-			return false;
-		
-		return true;
-	}
+        return newBlockHash.equals(expectedHash);
+    }
 
-	//test for empty
 	public boolean validateBlockchain() {
-		if (blockchain.size()<=1) return true;
-		Block ancestor,child;
-		//this is too long refactor
-		if (!blockchain.get(0).getPreviousHash().equals("000000000000000000000000000000000000000000000000000000000000000")) return false;
-		for (int i=0;i<blockchain.size()-1;i++) {
+		if (blockchain.size() <= 1) {
+            return true;
+        }
+
+		Block ancestor, child;
+
+		if (!blockchain.get(0).getPreviousHash().equals(GENESIS_HASH)) {
+            return false;
+        }
+
+		for (int i = 0; i < blockchain.size() - 1; i++) {
 			ancestor = blockchain.get(i);
-			child = blockchain.get(i+1);
-			if (validateLinkBetweenBlocks(ancestor, child)!=true) {
+			child = blockchain.get(i + 1);
+
+			if (!validateLinkBetweenBlocks(ancestor, child)) {
 				return false;
 			}
 		}
+
 		return true;
-		 
 	}
 
-	public String getHashOfLatestBlock() {
-		if (blockchain.size() == 0)
-			return "000000000000000000000000000000000000000000000000000000000000000";
-		return blockchain.get(blockchain.size() - 1).getThisHash();
+	public String getLatestBlockHash() {
+		if (blockchain.size() == 0) {
+            return GENESIS_HASH;
+        }
+		return blockchain.get(blockchain.size() - 1).getBlockHash();
 	}
-	
+
 	public Block getLatestBlock() {
-		if (blockchain.size() == 0)
-			return null;
+		if (blockchain.size() == 0) {
+            return null;
+        }
 		return blockchain.get(blockchain.size() - 1);
 	}
 
 	public Block getAncestorOfBlock(Block ancestorHash) {
 		for (Block block : blockchain) {
-			if (block.getThisHash().equals(ancestorHash))
-				return block;
+			if (block.getBlockHash().equals(ancestorHash)) {
+                return block;
+            }
 		}
 		return null;
 	}
 
 //	public Block getBlock() {
 //		for (Block block : blockchain) {
-//			if (block.getThisHash().equals(ancestorHash))
+//			if (block.getBlockHash().equals(ancestorHash))
 //				return block;
 //		}
 //		return null;
