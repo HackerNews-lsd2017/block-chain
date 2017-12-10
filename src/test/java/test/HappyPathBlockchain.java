@@ -1,12 +1,11 @@
 package test;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
 import datastructures.Block;
 import datastructures.Blockchain;
-import datastructures.Transaction;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class HappyPathBlockchain {
 
@@ -17,7 +16,7 @@ public class HappyPathBlockchain {
 		Block blockToBeChained = util.getValidNotMinedBlock();
 		Blockchain blockchain = new Blockchain();
 		//
-		blockToBeChained.mine(blockchain.getHashOfLatestBlock());
+		blockToBeChained.mine(blockchain.getLatestBlockHash());
 		//Chain block
 		boolean chainingResult=blockchain.chainBlock(blockToBeChained);
 		System.out.println(chainingResult);
@@ -29,19 +28,19 @@ public class HappyPathBlockchain {
 	public void getHashOfLatestBlock_NoBlocks_00000hash() {
 		Blockchain blockchain = new Blockchain();
 		
-		assertEquals(blockchain.getHashOfLatestBlock(),"000000000000000000000000000000000000000000000000000000000000000");
+		assertEquals(blockchain.getLatestBlockHash(),"000000000000000000000000000000000000000000000000000000000000000");
 	}
 	
 	@Test
 	public void getHashOfLatestBlock_OneBlock_True() {
 		Block blockToBeChained = util.getValidNotMinedBlock();
 		Blockchain blockchain = new Blockchain();
-		blockToBeChained.mine(blockchain.getHashOfLatestBlock());
+		blockToBeChained.mine(blockchain.getLatestBlockHash());
 		System.out.println(blockchain.chainBlock(blockToBeChained));
 		
-		String hashOfLastBlock=blockchain.getHashOfLatestBlock();
+		String hashOfLastBlock=blockchain.getLatestBlockHash();
 		
-		assertEquals(hashOfLastBlock,"000046138e30470da61ec35667742eae67e5d0276c3226708f5109867bff36e0");
+		assertEquals(hashOfLastBlock,"00007656832d9d79c028b535879c786ef2d604486046ea9e37fc7fe01b08aa05");
 	}
 	
 	@Test
@@ -49,14 +48,14 @@ public class HappyPathBlockchain {
 		Block blockToBeChained1 = util.getValidNotMinedBlock();
 		Block blockToBeChained2 = util.getValidNotMinedBlock();
 		Blockchain blockchain = new Blockchain();
-		blockToBeChained1.mine(blockchain.getHashOfLatestBlock());
+		blockToBeChained1.mine(blockchain.getLatestBlockHash());
 		System.out.println(blockchain.chainBlock(blockToBeChained1));
-		blockToBeChained2.mine(blockchain.getHashOfLatestBlock());
+		blockToBeChained2.mine(blockchain.getLatestBlockHash());
 		System.out.println(blockchain.chainBlock(blockToBeChained2));
 		
-		String hashOfLastBlock=blockchain.getHashOfLatestBlock();
+		String hashOfLastBlock=blockchain.getLatestBlockHash();
 		
-		assertEquals(hashOfLastBlock,"0000a02b4bd91d81c6c819c78a4581474dc326bc54f14cb86c9d4c789d6c73a2");
+		assertEquals(hashOfLastBlock,"0000b39dc19f9098e23501914d941c123e6cae9b2122453ed5acb0c968b5cc9f");
 	}
 	
 	@Test

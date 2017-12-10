@@ -1,11 +1,10 @@
 package test;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
 import datastructures.Block;
 import datastructures.Transaction;
+import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 public class BlockTests {
 
@@ -29,7 +28,7 @@ public class BlockTests {
 		}
 		
 		b.mine(previousValidHash);
-		String hashToValidate=b.getThisHash();
+		String hashToValidate=b.getBlockHash();
 		
 		assertTrue(hashToValidate.startsWith(validPrefix));
 	}
