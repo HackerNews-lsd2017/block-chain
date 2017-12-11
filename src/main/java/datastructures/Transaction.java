@@ -30,6 +30,6 @@ public class Transaction {
 	
 	@Override
 	public String toString() {
-		return giver + "-" + amount + "->" + receiver;
+		return giver + "-" + amount + ">" + receiver;
 	}
 }

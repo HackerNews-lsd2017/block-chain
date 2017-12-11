@@ -15,10 +15,10 @@ public class HappyPathBlockchain {
 	public void chainBlock_NoInitialBlock_True() {
 		Block blockToBeChained = util.getValidNotMinedBlock();
 		Blockchain blockchain = new Blockchain();
-		//
+
 		blockToBeChained.mine(blockchain.getLatestBlockHash());
 		//Chain block
-		boolean chainingResult=blockchain.chainBlock(blockToBeChained);
+		boolean chainingResult = blockchain.chainBlock(blockToBeChained);
 		System.out.println(chainingResult);
 		
 		assertTrue(chainingResult);
@@ -35,12 +35,13 @@ public class HappyPathBlockchain {
 	public void getHashOfLatestBlock_OneBlock_True() {
 		Block blockToBeChained = util.getValidNotMinedBlock();
 		Blockchain blockchain = new Blockchain();
+
 		blockToBeChained.mine(blockchain.getLatestBlockHash());
 		System.out.println(blockchain.chainBlock(blockToBeChained));
 		
-		String hashOfLastBlock=blockchain.getLatestBlockHash();
+		String hashOfLastBlock = blockchain.getLatestBlockHash();
 		
-		assertEquals(hashOfLastBlock,"00007656832d9d79c028b535879c786ef2d604486046ea9e37fc7fe01b08aa05");
+		assertEquals(hashOfLastBlock,"000046138e30470da61ec35667742eae67e5d0276c3226708f5109867bff36e0");
 	}
 	
 	@Test
@@ -48,25 +49,24 @@ public class HappyPathBlockchain {
 		Block blockToBeChained1 = util.getValidNotMinedBlock();
 		Block blockToBeChained2 = util.getValidNotMinedBlock();
 		Blockchain blockchain = new Blockchain();
+
 		blockToBeChained1.mine(blockchain.getLatestBlockHash());
 		System.out.println(blockchain.chainBlock(blockToBeChained1));
+
 		blockToBeChained2.mine(blockchain.getLatestBlockHash());
 		System.out.println(blockchain.chainBlock(blockToBeChained2));
 		
-		String hashOfLastBlock=blockchain.getLatestBlockHash();
+		String hashOfLastBlock = blockchain.getLatestBlockHash();
 		
-		assertEquals(hashOfLastBlock,"0000b39dc19f9098e23501914d941c123e6cae9b2122453ed5acb0c968b5cc9f");
+		assertEquals(hashOfLastBlock,"0000a02b4bd91d81c6c819c78a4581474dc326bc54f14cb86c9d4c789d6c73a2");
 	}
 	
 	@Test
 	public void validateBlockchain_ValidChain_True() {
 		Blockchain b = util.generateValidBlockchain(5);
 		
-		boolean resultOfValidation=b.validateBlockchain();
+		boolean resultOfValidation = b.validateBlockchain();
 		
 		assertTrue(resultOfValidation);
 	}
-	
-	
-
 }
