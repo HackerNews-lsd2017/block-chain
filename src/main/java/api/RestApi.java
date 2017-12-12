@@ -1,13 +1,12 @@
 package api;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
 import registry.PeerRegistry;
+
+import java.util.List;
 
 @RestController
 public class RestApi {
@@ -25,9 +24,7 @@ public class RestApi {
 	@RequestMapping("/consume")
 	public Integer consumeThing() {
 		RestTemplate restTemplate = new RestTemplate();
-        Integer status = restTemplate.getForObject("http://46.101.28.25:8080/latest", Integer.class);
-        return status;
-        
+		return restTemplate.getForObject("http://46.101.28.25:8080/latest", Integer.class);
 	}
 	
 	@RequestMapping("/pingFriends")

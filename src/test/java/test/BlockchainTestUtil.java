@@ -45,7 +45,7 @@ public class BlockchainTestUtil {
 	public Blockchain generateValidBlockchain(int numberOfBlocks) {
 		Blockchain b = new Blockchain();
 		for (int i=0;i<numberOfBlocks;i++) {
-			b.chainBlock(getValidMinedBlock(b.getHashOfLatestBlock()));
+			b.chainBlock(getValidMinedBlock(b.getLatestBlockHash()));
 		}
 		return b;
 	}
