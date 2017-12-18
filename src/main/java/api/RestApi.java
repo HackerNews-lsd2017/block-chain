@@ -1,39 +1,56 @@
 package api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import registry.PeerRegistry;
 
-import java.util.List;
+import datastructures.Transaction;
 
+//Pay attention to naming standards
+// (/receive or /broadcast) + /className
+// for example: /receive/transaction
 @RestController
 public class RestApi {
-	
+
+	Broadcaster broadcaster = new Broadcaster();
+
 	@Autowired
 	public RestApi() {
 	}
-	
+
 	@RequestMapping("/greeting")
 	public String echo() {
 		System.out.println("greeting");
 		return "test";
 	}
-	
+
+	@RequestMapping(path = "/receive/transaction", method = RequestMethod.POST)
+	public Boolean receiveTransaction(@RequestBody Transaction t) {
+		System.out.println(t.toString());
+		return true;
+	}
+
+	@RequestMapping(path = "/broadcast/transaction", method = RequestMethod.POST)
+	public Boolean broadcastTransaction(@RequestBody Transaction t) {
+		System.out.println(t.toString());
+		broadcaster.broadcastTransaction(t, 500);
+		System.out.println(t.toString());
+		return true;
+	}
+
 	@RequestMapping("/consume")
 	public Integer consumeThing() {
 		RestTemplate restTemplate = new RestTemplate();
 		return restTemplate.getForObject("http://46.101.28.25:8080/latest", Integer.class);
 	}
-	
+
 	@RequestMapping("/pingFriends")
 	public String pingFriends() {
-		RestTemplate restTemplate = new RestTemplate();
-		List<String> peers = PeerRegistry.getRegistry();
-		for (String peer : peers) {
-			String status = restTemplate.getForObject(peer+"/greeting", String.class);
-		}
-        return "done";
+		broadcaster.broadcastPingFriends(500);
+		return "done";
 	}
+
 }

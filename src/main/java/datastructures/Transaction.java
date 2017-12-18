@@ -10,6 +10,11 @@ public class Transaction {
 	 * @param receiver
 	 * @param amount
 	 */
+	//When you make a class that you want to broadcast always have an empty constructor!!!!!!1111
+	public Transaction() {
+		
+	}
+	
 	public Transaction(String giver, Integer amount, String receiver ) {
 		this.giver = giver;
 		this.receiver = receiver;
@@ -28,6 +33,18 @@ public class Transaction {
 		return amount;
 	}
 	
+	public void setGiver(String giver) {
+		this.giver = giver;
+	}
+
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
+
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
+	}
+
 	@Override
 	public String toString() {
 		return giver + "-" + amount + ">" + receiver;
