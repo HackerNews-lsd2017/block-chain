@@ -10,6 +10,7 @@ All nodes can be spinned up by using the command ```docker-compose -f docker-com
 
 The following operations can be done:
 - send a greeting message to all peers
+- broadcast and receive transactions
 - create blocks
 - chain the blocks in the blockchain
 - add transactions to a block
