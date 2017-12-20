@@ -19,19 +19,20 @@ public class Block {
 
     // Find proof of work
 	public int mine(String previousHash) {
-		nonce = 0;
-		String sha256hex = createHash();
-		this.previousHash = previousHash;
+            nonce = 0;
+            String sha256hex = createHash();
+            this.previousHash = previousHash;
 
         // Check if hash starts with 4 zeros, if it doesn't try the next nonce
-		while (!sha256hex.startsWith("0000")) {
-			nonce++;
-			sha256hex = createHash();
-		}
-        this.blockHash = sha256hex;
-        System.out.println("Blocked mined. Nonce (the proof of work): " + nonce);
+            while (!sha256hex.startsWith("0000")) {
+                nonce++;
+                sha256hex = createHash();
+            }
+            
+            this.blockHash = sha256hex;
+            System.out.println("Blocked mined. Nonce (the proof of work): " + nonce);
 
-		return nonce;
+            return nonce;
 	}
 
 	public String createHash() {

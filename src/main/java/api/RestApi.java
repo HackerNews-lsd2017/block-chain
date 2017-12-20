@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import datastructures.Transaction;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 //Pay attention to naming standards
 // (/receive or /broadcast) + /className
@@ -18,6 +19,8 @@ import datastructures.Transaction;
 public class RestApi {
         Block block = new Block();
 	Broadcaster broadcaster = new Broadcaster();
+        Blockchain blockchain = new Blockchain();
+
         
 	@Autowired
 	public RestApi() {
@@ -28,10 +31,22 @@ public class RestApi {
             System.out.println("greeting");
             return "test";
 	}
+        
+        // TODO: 
+        
+        // TODO: GET THE RETURN VALUE AND REPLACE THE CHAIN
+        // ITS A HACK FOR NOW. BETTER THAN NOTHING.
+        @RequestMapping(path = "/getBlockchain", method = RequestMethod.GET)
+        @ResponseBody
+	public Boolean getBlockChain() {
+            blockchain.replaceChain(null);
+            return true;
+	}
 
 	@RequestMapping(path = "/receive/transaction", method = RequestMethod.POST)
-	public Boolean receiveTransaction(@RequestBody Transaction t) {
+	public Boolean receiveTransaction(@RequestBody Transaction t) throws Exception {
             System.out.println(t.toString());
+            blockchain.createNewBlock(t);
             return true;
 	}
 

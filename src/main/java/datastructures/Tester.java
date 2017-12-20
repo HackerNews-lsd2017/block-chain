@@ -14,9 +14,7 @@ public class Tester {
             Transaction t4 = new Transaction("Spiderman", 70);
             Transaction t5 = new Transaction("Spiderman", 70);
             Transaction t6 = new Transaction("Batman", 70);
-            ArrayList list = new ArrayList();
-            list.add(t1);
-            list.add(t2);
+
             // create blocks
             Block b1 = new Block();
             Block b2 = new Block();
@@ -49,7 +47,17 @@ public class Tester {
             bc.chainBlock(b3);
             System.out.println("---");
             
+            bc.createNewBlock(t1);
+            
             bc.createNewBlock(t2);
+            
+            bc.createNewBlock(t3);
+            
+            bc.createNewBlock(t4);
+            
+            bc.createNewBlock(t5);
+            
+            bc.createNewBlock(t6);
 
 
             System.out.println("Latest block hash: " + bc.getLatestBlockHash() + " block size " + bc.getSize());
