@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import datastructures.Blockchain;
 import datastructures.Transaction;
+import util.Broadcaster;
+import util.Manager;
 
 //Pay attention to naming standards
 // (/receive or /broadcast) + /className
@@ -29,15 +32,22 @@ public class RestApi {
 
 	@RequestMapping(path = "/receive/transaction", method = RequestMethod.POST)
 	public Boolean receiveTransaction(@RequestBody Transaction t) {
+		
 		System.out.println(t.toString());
+		return true;
+	}
+	
+	@RequestMapping(path = "/receive/blockchain", method = RequestMethod.POST)
+	public Boolean receiveBlockchain(@RequestBody Blockchain bc) {
+		//Manager.
+		System.out.println(bc.toString());
 		return true;
 	}
 
 	@RequestMapping(path = "/broadcast/transaction", method = RequestMethod.POST)
 	public Boolean broadcastTransaction(@RequestBody Transaction t) {
-		System.out.println(t.toString());
 		broadcaster.broadcastTransaction(t, 500);
-		System.out.println(t.toString());
+		Manager.addTransaction(t);
 		return true;
 	}
 

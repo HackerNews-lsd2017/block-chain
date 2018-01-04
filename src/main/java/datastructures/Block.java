@@ -1,13 +1,12 @@
 package datastructures;
 
-import org.apache.commons.codec.digest.DigestUtils;
+import java.util.Stack;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.apache.commons.codec.digest.DigestUtils;
 
 public class Block {
 	private int nonce = 0;
-	private List<Transaction> transactions = new ArrayList<>();
+	private Stack<Transaction> transactions = new Stack<>();
 	private String previousHash = null;
 
 	private String blockHash = null;
@@ -38,7 +37,7 @@ public class Block {
 		return DigestUtils.sha256Hex(nonce + transactionsToString(transactions) + previousHash);
 	}
 
-	public List<Transaction> getTransactions() {
+	public Stack<Transaction> getTransactions() {
 		return transactions;
 	}
 
@@ -53,26 +52,42 @@ public class Block {
 	public void addTransaction(Transaction transaction) throws Exception {
 		if (transaction == null)
 			throw new Exception();
-		this.transactions.add(transaction);
+		this.transactions.push(transaction);
 	}
 
 	public int getNonce() {
 		return nonce;
 	}
 
-	public String transactionsToString(List<Transaction> transactions) {
+	public String transactionsToString(Stack<Transaction> transactions) {
 		String s = "";
 		for (Transaction transaction : transactions) {
 			s += (transaction + ",");
 		}
 		return s;
 	}
+	
+	public Stack<Transaction> getStack() {
+		return transactions;
+	}
+	
+	public void setStack(Stack<Transaction> stack) {
+		this.transactions=stack;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		Block blockUnderComparison = (Block) obj;
+		if (this.previousHash.equals(blockUnderComparison)) return true;
+		return false;
+	}
 
     @Override
     public String toString() {
         return "Block{" +
                 "nonce=" + nonce +
-                ", transactions=" + transactions +
+                ", transactions=" + transactionsToString(transactions) +
                 ", previousHash='" + previousHash + '\'' +
                 ", blockHash='" + blockHash + '\'' +
                 '}';

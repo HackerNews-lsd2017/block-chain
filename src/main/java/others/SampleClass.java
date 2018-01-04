@@ -1,4 +1,4 @@
-package datastructures;
+package others;
 
 public class SampleClass {
 

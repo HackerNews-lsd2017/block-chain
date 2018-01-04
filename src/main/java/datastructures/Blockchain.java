@@ -1,9 +1,9 @@
 package datastructures;
 
-import org.apache.commons.codec.digest.DigestUtils;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.codec.digest.DigestUtils;
 
 public class Blockchain {
 	// This should be a tree but ain't nobody got time for that
@@ -75,6 +75,24 @@ public class Blockchain {
 		}
 		return true;
 	}
+	
+	public boolean inheritBlockchain(Blockchain newBlockchain) {
+		if (newBlockchain.validateBlockchain()) {
+			
+			int oldLength=blockchain.size();
+			Block currentOldBlock,currentNewBlock;
+			
+			for (int i=0;i<oldLength;i++) {
+				currentOldBlock=this.getBlock(i);
+				currentNewBlock=newBlockchain.getBlock(i);
+				if(!currentOldBlock.equals(currentNewBlock)) return false;
+			}
+			
+			this.blockchain=newBlockchain.getBlockchainContent();
+			return true;
+		}
+		return false;
+	}
 
 	public String getLatestBlockHash() {
 		if (blockchain.size() == 0) {
@@ -89,6 +107,14 @@ public class Blockchain {
         }
 		return blockchain.get(blockchain.size() - 1);
 	}
+	
+	public Block getBlock(int index) {
+		return blockchain.get(index);
+	}
+	
+	public List<Block> getBlockchainContent() {
+		return this.blockchain;
+	}
 
 	public Block getAncestorOfBlock(Block ancestorHash) {
 		for (Block block : blockchain) {
@@ -97,6 +123,19 @@ public class Blockchain {
             }
 		}
 		return null;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		StringBuilder builder = new StringBuilder();
+		for (Block block : blockchain) {
+			builder.append(block.toString());
+			builder.append("\n");
+			//System.out.println();
+		}
+		builder.append("------------------------------------------------------------");
+		return builder.toString();
 	}
 
 //	public Block getBlock() {

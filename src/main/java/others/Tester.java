@@ -1,4 +1,8 @@
-package datastructures;
+package others;
+
+import datastructures.Block;
+import datastructures.Blockchain;
+import datastructures.Transaction;
 
 public class Tester {
 

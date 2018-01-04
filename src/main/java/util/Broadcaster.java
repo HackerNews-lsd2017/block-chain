@@ -1,10 +1,12 @@
-package api;
+package util;
 
 import java.util.List;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.web.client.RestTemplate;
 
+import api.AppConfig;
+import datastructures.Blockchain;
 import datastructures.Transaction;
 import registry.PeerRegistry;
 
@@ -46,5 +48,29 @@ public class Broadcaster {
 				System.out.println("Peer "+peerUrl+" does not respond");
 			}
 		}
+	}
+	
+	public void broadcastNewBlockchain(Blockchain bc, int timeout) {
+		//Get template that will time out response if something goes wrong
+		RestTemplate restTemplate = config.getRestTemplateWithTimeout(timeout);
+		
+		//Set the request payload
+		HttpEntity<Blockchain> request = new HttpEntity<>(bc);
+		
+		//Iterate over all peers
+		for (String peerUrl : peers) {
+			try {
+				// This description corresponds to method below
+				//url, request payload, expected return type
+				restTemplate.postForObject(peerUrl+"/receive/blockchain", request, Boolean.class);
+			}
+			catch(Exception e) {
+				System.out.println("Peer "+peerUrl+" does not respond");
+			}
+		}
+	}
+	
+	private void iteratePeers() {
+		
 	}
 }
