@@ -14,7 +14,7 @@ public class MinerThread implements Runnable {
 			e.printStackTrace();
 			}
 		
-			Manager.generateNewBlockchain();
+			Manager.createBlock();
 			i+=5;
 		} while (i<=50);
 		

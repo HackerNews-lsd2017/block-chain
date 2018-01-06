@@ -1,10 +1,10 @@
 package util;
 
-import java.util.Stack;
-
 import datastructures.Block;
 import datastructures.Blockchain;
 import datastructures.Transaction;
+
+import java.util.Stack;
 
 public class Manager {
 
@@ -24,7 +24,7 @@ public class Manager {
 		transactionStack.push(t);
 	}
 	
-	public static void generateNewBlockchain() {
+	public static void createBlock() {
 		
 		if (transactionStack.isEmpty()) return;
 		
@@ -35,10 +35,18 @@ public class Manager {
 			transactionStack = new Stack<Transaction>();
 		}
 		
-		b.mine(bc.getLatestBlockHash());
-		bc.chainBlock(b);
-		
+		b.mine(bc.getLatestBlock().getBlockHash());
+		bc.addBlock(b);
 		System.out.println(bc.toString());
+	}
+
+	public void createNewBlock(Transaction trans) throws Exception {
+		Block block = new Block();
+
+		block.addTransaction(trans);
+
+		block.mine(bc.getLatestBlock().getBlockHash());
+		chain(block);
 	}
 	
 //	public static boolean getNewBlockchain() {

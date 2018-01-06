@@ -1,21 +1,36 @@
 package datastructures;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.codec.digest.DigestUtils;
-
 public class Blockchain {
-	// This should be a tree but ain't nobody got time for that
+    private Block root = new Block();
 	private List<Block> blockchain = new ArrayList<>();
-    // "\A[0]{63}" -> 63 zeros
-	private final String GENESIS_HASH = new String(new char[63]).replace('\0', '0');
 
+	public Blockchain() {
+		Block gb = new Block();
+        String GENESIS_HASH = new String(new char[63]).replace('\0', '0');
+        gb.setPreviousHash(GENESIS_HASH);
+		gb.mine(GENESIS_HASH);
+		this.blockchain.add(gb);
+	}
+
+	public void addBlock(Block block) {
+		blockchain.add(block);
+	}
+
+	public Block getLatestBlock() {
+		return blockchain.get(blockchain.size() - 1);
+	}
+
+	// TODO: This is will be used right after a block is received
 	public boolean chainBlock(Block newBlock) {
 		Block lastBlock = getLatestBlock();
 
-		if (validateLinkBetweenBlocks(lastBlock, newBlock)) {
-			// Click! Chain new block
+        if (validateLinkBetweenBlocks(lastBlock, newBlock)) {
+            // Click! Chain new block
 			blockchain.add(newBlock);
             System.out.println("Successfully chained a new block: " + newBlock);
 			return true;
@@ -29,11 +44,7 @@ public class Blockchain {
 		String previousBlockHash;
 		String newBlockHash;
 
-		if (blockchain.size() == 0) {
-            previousBlockHash = getLatestBlockHash();
-        } else {
-            previousBlockHash = previousBlock.getBlockHash();
-        }
+        previousBlockHash = previousBlock.getBlockHash();
 		newBlockHash = newBlock.getBlockHash();
 		
 		// Check if block "to be chained" has wrong prefix
@@ -52,78 +63,6 @@ public class Blockchain {
 
         return newBlockHash.equals(expectedHash);
     }
-
-	//test for empty
-	public boolean validateBlockchain() {
-		if (blockchain.size() <= 1) {
-            return true;
-        }
-
-		Block ancestor, child;
-
-		if (!blockchain.get(0).getPreviousHash().equals(GENESIS_HASH)) {
-            return false;
-        }
-
-		for (int i = 0; i < blockchain.size() - 1; i++) {
-			ancestor = blockchain.get(i);
-			child = blockchain.get(i + 1);
-
-			if (!validateLinkBetweenBlocks(ancestor, child)) {
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	public boolean inheritBlockchain(Blockchain newBlockchain) {
-		if (newBlockchain.validateBlockchain()) {
-			
-			int oldLength=blockchain.size();
-			Block currentOldBlock,currentNewBlock;
-			
-			for (int i=0;i<oldLength;i++) {
-				currentOldBlock=this.getBlock(i);
-				currentNewBlock=newBlockchain.getBlock(i);
-				if(!currentOldBlock.equals(currentNewBlock)) return false;
-			}
-			
-			this.blockchain=newBlockchain.getBlockchainContent();
-			return true;
-		}
-		return false;
-	}
-
-	public String getLatestBlockHash() {
-		if (blockchain.size() == 0) {
-            return GENESIS_HASH;
-        }
-		return blockchain.get(blockchain.size() - 1).getBlockHash();
-	}
-	
-	public Block getLatestBlock() {
-		if (blockchain.size() == 0) {
-            return null;
-        }
-		return blockchain.get(blockchain.size() - 1);
-	}
-	
-	public Block getBlock(int index) {
-		return blockchain.get(index);
-	}
-	
-	public List<Block> getBlockchainContent() {
-		return this.blockchain;
-	}
-
-	public Block getAncestorOfBlock(Block ancestorHash) {
-		for (Block block : blockchain) {
-			if (block.getBlockHash().equals(ancestorHash)) {
-                return block;
-            }
-		}
-		return null;
-	}
 	
 	@Override
 	public String toString() {
@@ -137,14 +76,4 @@ public class Blockchain {
 		builder.append("------------------------------------------------------------");
 		return builder.toString();
 	}
-
-//	public Block getBlock() {
-//		for (Block block : blockchain) {
-//			if (block.getBlockHash().equals(ancestorHash))
-//				return block;
-//		}
-//		return null;
-//	}
-
-
 }

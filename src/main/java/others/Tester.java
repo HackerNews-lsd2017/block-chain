@@ -26,7 +26,7 @@ public class Tester {
         b1.addTransaction(t1);
         b1.addTransaction(t2);
         //  2. Mine block
-        b1.mine(bc.getLatestBlockHash());
+        b1.mine(bc.getLatestBlock().getBlockHash());
         //  3. And then chain it to the blockchain
         bc.chainBlock(b1);
         System.out.println("---");
@@ -35,7 +35,7 @@ public class Tester {
         b2.addTransaction(t3);
         b2.addTransaction(t4);
         //  2. Mine block
-        b2.mine(bc.getLatestBlockHash());
+        b2.mine(bc.getLatestBlock().getBlockHash());
         //  3. And then chain it to the blockchain
         bc.chainBlock(b2);
         System.out.println("---");
@@ -43,14 +43,12 @@ public class Tester {
         //  1. Add transaction to the block
         b3.addTransaction(t5);
         //  2. If I mine first
-        b3.mine(bc.getLatestBlockHash());
+        b3.mine(bc.getLatestBlock().getBlockHash());
         //  3. ... modify block and THEN try to chain it, it will not happened
         b3.addTransaction(t6);
         bc.chainBlock(b3);
         System.out.println("---");
 
-        System.out.println("Latest block hash: " + bc.getLatestBlockHash());
-
+        System.out.println("Blockchain: " + bc.toString());
 	}
-
 }
