@@ -36,7 +36,9 @@ public class Manager {
 		}
 		
 		b.mine(bc.getLatestBlockHash());
+		
 		bc.chainBlock(b);
+		// Do something more here to tell other peers that this is new blockchain
 		
 		System.out.println(bc.toString());
 	}
