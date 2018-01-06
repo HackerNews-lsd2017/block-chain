@@ -16,7 +16,7 @@ public class MinerThread implements Runnable {
 		
 			Manager.createBlock();
 			i+=5;
-		} while (i<=50);
+		} while (true);
 		
 		
 	}

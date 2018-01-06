@@ -6,6 +6,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.web.client.RestTemplate;
 
 import api.AppConfig;
+import datastructures.Block;
 import datastructures.Blockchain;
 import datastructures.Transaction;
 import registry.PeerRegistry;
@@ -43,9 +44,31 @@ public class Broadcaster {
 				// This description corresponds to method below
 				//url, request payload, expected return type
 				restTemplate.postForObject(peerUrl+"/receive/transaction", request, Boolean.class);
+				System.out.println("Broadcasted: "+t.toString());
 			}
 			catch(Exception e) {
-				System.out.println("Peer "+peerUrl+" does not respond");
+				//System.out.println("Peer "+peerUrl+" does not respond");
+			}
+		}
+		Manager.addTransaction(t);
+	}
+	
+	public void broadcastNewBlock(Block b, int timeout) {
+		//Get template that will time out response if something goes wrong
+		RestTemplate restTemplate = config.getRestTemplateWithTimeout(timeout);
+		
+		//Set the request payload
+		HttpEntity<Block> request = new HttpEntity<>(b);
+		
+		//Iterate over all peers
+		for (String peerUrl : peers) {
+			try {
+				// This description corresponds to method below
+				//url, request payload, expected return type
+				restTemplate.postForObject(peerUrl+"/receive/block", request, Boolean.class);
+			}
+			catch(Exception e) {
+				//System.out.println("Peer "+peerUrl+" does not respond");
 			}
 		}
 	}
@@ -65,7 +88,7 @@ public class Broadcaster {
 				restTemplate.postForObject(peerUrl+"/receive/blockchain", request, Boolean.class);
 			}
 			catch(Exception e) {
-				System.out.println("Peer "+peerUrl+" does not respond");
+				//System.out.println("Peer "+peerUrl+" does not respond");
 			}
 		}
 	}
