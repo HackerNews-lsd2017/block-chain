@@ -13,6 +13,7 @@ public class PeerRegistry {
 		registry.add("http://192.168.99.100:8080");
 		registry.add("http://192.168.99.100:8081");
 		registry.add("http://192.168.99.100:8082");
+		registry.add("http://192.168.99.100:8083");
 	}
 	
 	public static void addPeer(String peerAddress) {

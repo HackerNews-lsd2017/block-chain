@@ -1,5 +1,8 @@
 package api;
 
+import datastructures.Block;
+import datastructures.Blockchain;
+import datastructures.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,9 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import datastructures.Block;
-import datastructures.Blockchain;
-import datastructures.Transaction;
 import util.Broadcaster;
 import util.Manager;
 
@@ -33,23 +33,32 @@ public class RestApi {
 
 	@RequestMapping(path = "/receive/transaction", method = RequestMethod.POST)
 	public Boolean receiveTransaction(@RequestBody Transaction t) {
-		
+		// Process the transaction
+		// Mine the transaction
+		// once mined send it to peers
 		System.out.println(t.toString());
 		return true;
 	}
 	
-	@RequestMapping(path = "/receive/blockchain", method = RequestMethod.POST)
-	public Boolean receiveBlockchain(@RequestBody Blockchain bc) {
-		//Manager.
-		System.out.println(bc.toString());
-		return true;
-	}
+//	@RequestMapping(path = "/receive/blockchain", method = RequestMethod.POST)
+//	public Boolean receiveBlockchain(@RequestBody Blockchain bc) {
+//		// get the new blockchain and compare lengths with the old one
+//		System.out.println("RECEIVED BLOCK "+ bc.toString());
+//		return true;
+//	}
 	
 	@RequestMapping(path = "/receive/block", method = RequestMethod.POST)
 	public Boolean receiveBlock(@RequestBody Block b) {
 		//Manager.
-		Manager.chain(b);
-		System.out.println(b.toString());
+		boolean isItChained=Manager.chain(b);
+		
+		System.out.println("RECEIVED BLOCK "+ b.toString());
+		return isItChained;
+	}
+
+	@RequestMapping(path = "/broadcast/block", method = RequestMethod.POST)
+	public Boolean broadcastBlock(@RequestBody Block b) {
+		broadcaster.broadcastNewBlock(b,500);
 		return true;
 	}
 

@@ -1,6 +1,7 @@
 package util;
 
 import java.util.Stack;
+import java.util.UUID;
 
 import datastructures.Block;
 import datastructures.Blockchain;
@@ -8,6 +9,7 @@ import datastructures.Transaction;
 
 public class Manager {
 
+	public static final String ID = UUID.randomUUID().toString();
 	private static Manager instance = new Manager();
 	private static Blockchain bc = new Blockchain();
 	private static Stack<Transaction> transactionStack = new Stack<Transaction>();
@@ -37,16 +39,22 @@ public class Manager {
 			transactionStack = new Stack<Transaction>();
 		}
 		
-		b.mine(bc.getLatestBlockHash());
-		
-		
-		
-		broadcaster.broadcastNewBlock(b, 500);
+		b.mine(bc.getLatestBlock().getBlockHash());
+		boolean chained=bc.chainBlock(b);
+		if (chained) broadcaster.broadcastNewBlock(b, 500);
 		
 		// Do something more here to tell other peers that this is new blockchain
 		
-		
 		System.out.println(bc.toString());
+	}
+
+	public void createNewBlock(Transaction trans) throws Exception {
+		Block block = new Block();
+
+		block.addTransaction(trans);
+
+		block.mine(bc.getLatestBlock().getBlockHash());
+		chain(block);
 	}
 	
 //	public static boolean getNewBlockchain() {
