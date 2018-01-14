@@ -11,5 +11,5 @@ To run the project manually
 2. mvn dockerfile:build
 3. docker-compose up
 
-To run the project with only one command:
+To run the project with only one command - unix systems:
 1. run the bash script ./run.sh (automates all manual steps from above)
