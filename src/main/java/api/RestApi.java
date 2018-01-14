@@ -36,7 +36,7 @@ public class RestApi {
 		// Process the transaction
 		// Mine the transaction
 		// once mined send it to peers
-		System.out.println(t.toString());
+		//System.out.println(t.toString());
 		return true;
 	}
 	
@@ -52,7 +52,7 @@ public class RestApi {
 		//Manager.
 		boolean isItChained=Manager.chain(b);
 		
-		System.out.println("RECEIVED BLOCK "+ b.toString());
+		if (isItChained) System.out.println("-----------------------------RECEIVED VALID BLOCK----------------------------------- \n"+ b.toString());
 		return isItChained;
 	}
 

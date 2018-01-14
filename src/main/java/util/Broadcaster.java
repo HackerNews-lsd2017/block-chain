@@ -44,7 +44,7 @@ public class Broadcaster {
 				// This description corresponds to method below
 				//url, request payload, expected return type
 				restTemplate.postForObject(peerUrl+"/receive/transaction", request, Boolean.class);
-				System.out.println("Broadcasted: "+t.toString());
+				//System.out.println("Broadcasted: "+t.toString());
 			}
 			catch(Exception e) {
 				//System.out.println("Peer "+peerUrl+" does not respond");
