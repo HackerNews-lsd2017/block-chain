@@ -11,6 +11,8 @@ public class Manager {
 	private static Manager instance = new Manager();
 	private static Blockchain bc = new Blockchain();
 	private static Stack<Transaction> transactionStack = new Stack<Transaction>();
+	private static Broadcaster broadcaster = new Broadcaster();
+	
 	
 	private Manager() {
 		
@@ -24,7 +26,7 @@ public class Manager {
 		transactionStack.push(t);
 	}
 	
-	public static void generateNewBlockchain() {
+	public static void generateNewBlock() {
 		
 		if (transactionStack.isEmpty()) return;
 		
@@ -37,8 +39,12 @@ public class Manager {
 		
 		b.mine(bc.getLatestBlockHash());
 		
-		bc.chainBlock(b);
+		
+		
+		broadcaster.broadcastNewBlock(b, 500);
+		
 		// Do something more here to tell other peers that this is new blockchain
+		
 		
 		System.out.println(bc.toString());
 	}

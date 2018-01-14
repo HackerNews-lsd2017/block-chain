@@ -4,7 +4,6 @@ public class MinerThread implements Runnable {
 
 	@Override
 	public void run() {
-		int i=0;
 		do
 		{
 			try {
@@ -14,10 +13,8 @@ public class MinerThread implements Runnable {
 			e.printStackTrace();
 			}
 		
-			Manager.generateNewBlockchain();
-			i+=5;
+			Manager.generateNewBlock();
 		} while (true);
-		
 		
 	}
 

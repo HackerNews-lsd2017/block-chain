@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import datastructures.Block;
 import datastructures.Blockchain;
 import datastructures.Transaction;
 import util.Broadcaster;
@@ -41,6 +42,14 @@ public class RestApi {
 	public Boolean receiveBlockchain(@RequestBody Blockchain bc) {
 		//Manager.
 		System.out.println(bc.toString());
+		return true;
+	}
+	
+	@RequestMapping(path = "/receive/block", method = RequestMethod.POST)
+	public Boolean receiveBlock(@RequestBody Block b) {
+		//Manager.
+		Manager.chain(b);
+		System.out.println(b.toString());
 		return true;
 	}
 
