@@ -23,6 +23,7 @@ public class Block {
 
         // Check if hash starts with 4 zeros, if it doesn't try the next nonce
 		while (!sha256hex.startsWith("0000")) {
+			
 			nonce++;
 			sha256hex = createHash();
 		}

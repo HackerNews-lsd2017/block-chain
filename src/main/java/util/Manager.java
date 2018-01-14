@@ -40,11 +40,10 @@ public class Manager {
 		}
 		
 		b.mine(bc.getLatestBlock().getBlockHash());
-		boolean chained=bc.chainBlock(b);
-		if (chained) broadcaster.broadcastNewBlock(b, 500);
+		broadcaster.broadcastNewBlock(b, 500);
+		bc.chainBlock(b);
 		
-		// Do something more here to tell other peers that this is new blockchain
-		
+				
 		System.out.println(bc.toString());
 	}
 
