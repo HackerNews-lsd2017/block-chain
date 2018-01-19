@@ -16,7 +16,7 @@ README required for the final hand in
 ## Snapshots of a running blockchain in the network of 4 nodes
 Zoom in if the text on the picture is unreadable, screenshots have high resolution.
 
-1. This is an image of the docker compose command being run and all 4 nodes starting up their own servers. The nodes run a Spring server each which will mine transactions received and then keep all block chains up to date.
+1. This is a picture of the docker compose command being run and all 4 nodes starting up their own servers. The nodes run a Spring server each which will mine transactions received and then keep all block chains up to date.
 ![alt text](https://github.com/HackerNews-lsd2017/block-chain/blob/master/imgs/Screen%20Shot%202018-01-19%20at%2018.54.34.png)
 
 2. Here you can see that the nodes are mining the first transactions. The first node to have mined the transactions is then broadcasting the block to all other nodes which are then affirming that they recieved a valid block (each node verifies if the block received is valid) and then adding that block to their block chain.
