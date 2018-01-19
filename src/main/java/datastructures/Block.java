@@ -37,7 +37,7 @@ public class Block {
 		// Check if hash starts with 3 zeros, if it doesn't try the next nonce
 		while (!md5Hex.startsWith("000")) {
 
-			nonce++;
+			nonce += 2;
 			md5Hex = createHash_md5();
 		}
 		this.blockHash = md5Hex;
