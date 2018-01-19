@@ -16,20 +16,22 @@ public class TransactionBot implements Runnable {
 	
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		while(true) {
-			
-			amount = ThreadLocalRandom.current().nextInt(2, 10000 + 1);
-			t = new Transaction(generateRandomName(),amount,generateRandomName());
-			
-			broadcaster.broadcastTransaction(t, 100);
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+            long start = System.currentTimeMillis();
+            long end = start + 25*1000;
+
+            while (System.currentTimeMillis() < end)
+            {			
+                amount = ThreadLocalRandom.current().nextInt(2, 10000 + 1);
+                t = new Transaction(generateRandomName(),amount,generateRandomName());
+
+                broadcaster.broadcastTransaction(t, 100);
+                try {
+                        Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                }
+            }
 		
 	}
 	
