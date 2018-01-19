@@ -26,7 +26,7 @@ Zoom in if the text on the picture is unreadable, screenshots have high resoluti
 ![alt text](https://github.com/HackerNews-lsd2017/block-chain/blob/master/imgs/Screen%20Shot%202018-01-19%20at%2018.52.34.png)
 
 4. Here the process of random transactions being pushed to the nodes is ending after 25 seconds. The process then ends and the test scenario is done running.
-![alt text](https://github.com/HackerNews-lsd2017/block-chain/blob/master/imgs/Screen%20Shot%202018-01-19%20at%2018.33.33.png)
+![alt text](https://github.com/HackerNews-lsd2017/block-chain/blob/master/imgs/Screen%20Shot%202018-01-19%20at%2018.53.07.png)
 
 Resources:    
 https://github.com/Will1229/Blockchain
