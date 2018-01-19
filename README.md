@@ -2,7 +2,7 @@
 
 README required for the final hand in  
 
-##Requirements:
+## Requirements:
 - have docker installed together with docker-compose
 
 To run the project with only one command - unix systems:
