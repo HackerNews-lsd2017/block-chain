@@ -15,5 +15,6 @@ To run the project with only one command - unix systems:
 1. run the bash script ./run.sh (automates all manual steps from above)
 
 Resources:
+
 https://github.com/Will1229/Blockchain
 https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa
