@@ -16,21 +16,40 @@ public class Block {
     // Find proof of work
 	public void mine(String previousHash) {
 		nonce = 0;
-		String sha256hex = createHash();
+		String sha256hex = createHash_sha256();
 		this.previousHash = previousHash;
 
         // Check if hash starts with 4 zeros, if it doesn't try the next nonce
 		while (!sha256hex.startsWith("0000")) {
 			
 			nonce++;
-			sha256hex = createHash();
+			sha256hex = createHash_sha256();
 		}
         this.blockHash = sha256hex;
         System.out.println("Block mined. Nonce (the proof of work): " + nonce);
 	}
 
-	public String createHash() {
+	public void mine2(String previousHash) {
+		nonce = 0;
+		String md5Hex = createHash_md5();
+		this.previousHash = previousHash;
+
+		// Check if hash starts with 3 zeros, if it doesn't try the next nonce
+		while (!md5Hex.startsWith("000")) {
+
+			nonce += 2;
+			md5Hex = createHash_md5();
+		}
+		this.blockHash = md5Hex;
+		System.out.println("Block mined. Nonce (the proof of work): " + nonce);
+	}
+
+	public String createHash_sha256() {
 		return DigestUtils.sha256Hex(nonce + transactionsToString(transactions) + previousHash);
+	}
+
+	public String createHash_md5() {
+		return DigestUtils.md5Hex(nonce + transactionsToString(transactions) + previousHash);
 	}
 
 	public Stack<Transaction> getTransactions() {
