@@ -21,7 +21,9 @@ We have decided to use screenshots rather than a screencast as we have a bot cre
 
 If you want to broadcast a transaction manually you can run the nodes and using Postman send a node a JSON of the transaction object. Sending a transaction to one node automatically sends it to all other nodes.
 * URL: http://192.168.99.100:8080/broadcast/transaction
-* JSON: 
+* JSON: ```{"giver":"Adam", 
+ "amount":5, 
+ "receiver":"Paul"}```
 
 Zoom in if the text on the picture is unreadable, screenshots have high resolution.
 
