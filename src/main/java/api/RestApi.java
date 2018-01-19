@@ -36,14 +36,12 @@ public class RestApi {
 		// Process the transaction
 		// Mine the transaction
 		// once mined send it to peers
-		//System.out.println(t.toString());
 		return true;
 	}
 	
 //	@RequestMapping(path = "/receive/blockchain", method = RequestMethod.POST)
 //	public Boolean receiveBlockchain(@RequestBody Blockchain bc) {
 //		// get the new blockchain and compare lengths with the old one
-//		System.out.println("RECEIVED BLOCK "+ bc.toString());
 //		return true;
 //	}
 	

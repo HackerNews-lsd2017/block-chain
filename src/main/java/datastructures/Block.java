@@ -11,8 +11,6 @@ public class Block {
 	private String blockHash = null;
 
 	public Block() {
-		// if (id==null || transaction==null) throw new Exception();
-		// addTransaction(transaction);
 	}
 
     // Find proof of work
@@ -28,7 +26,7 @@ public class Block {
 			sha256hex = createHash();
 		}
         this.blockHash = sha256hex;
-        //System.out.println("Blocked mined. Nonce (the proof of work): " + nonce);
+        System.out.println("Block mined. Nonce (the proof of work): " + nonce);
 	}
 
 	public String createHash() {
@@ -75,7 +73,6 @@ public class Block {
 	
 	@Override
 	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
 		Block blockUnderComparison = (Block) obj;
 		if (this.previousHash.equals(blockUnderComparison)) return true;
 		return false;

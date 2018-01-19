@@ -25,7 +25,6 @@ public class Blockchain {
 		return blockchain.get(blockchain.size() - 1);
 	}
 
-	// TODO: This is will be used right after a block is received
 	public boolean chainBlock(Block newBlock) {
 		Block lastBlock = getLatestBlock();
 
@@ -36,7 +35,6 @@ public class Blockchain {
 			return true;
 		}
 
-        System.out.println("Couldn't chain block");
 		return false;
 	}
 
@@ -71,7 +69,6 @@ public class Blockchain {
 		for (Block block : blockchain) {
 			builder.append(block.toString());
 			builder.append("\n");
-			//System.out.println();
 		}
 		builder.append("------------------------------------------------------------");
 		return builder.toString();
