@@ -17,6 +17,12 @@ README required for the final hand in
 3. docker-compose up
 
 ## Snapshots of a running blockchain in the network of 4 nodes
+We have decided to use screenshots rather than a screencast as we have a bot creating transactions and broadcasting the transactions to each node. This would make it very hard to follow what is going on.
+
+If you want to broadcast a transaction manually you can run the nodes and using Postman send a node a JSON of the transaction object. Sending a transaction to one node automatically sends it to all other nodes.
+* URL: http://192.168.99.100:8080/broadcast/transaction
+* JSON: 
+
 Zoom in if the text on the picture is unreadable, screenshots have high resolution.
 
 1. This is a picture of the docker compose command being run and all 4 nodes starting up their own servers. The nodes run a Spring server each which will mine blocks from received transactions and then keep all block chains up to date.
