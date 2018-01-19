@@ -70,7 +70,6 @@ public class Blockchain {
 			builder.append(block.toString());
 			builder.append("\n");
 		}
-		builder.append("------------------------------------------------------------");
 		return builder.toString();
 	}
 }
