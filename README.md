@@ -36,6 +36,6 @@ Zoom in if the text on the picture is unreadable, screenshots have high resoluti
 ![alt text](https://github.com/HackerNews-lsd2017/block-chain/blob/master/imgs/Screen%20Shot%202018-01-19%20at%2018.53.07.png)
 
 Resources:    
-https://github.com/Will1229/Blockchain 
-https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa 
-https://marmelab.com/blog/2016/04/28/blockchain-for-web-developers-the-theory.html 
+* https://github.com/Will1229/Blockchain 
+* https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa 
+* https://marmelab.com/blog/2016/04/28/blockchain-for-web-developers-the-theory.html 
